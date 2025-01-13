@@ -1,0 +1,117 @@
+---
+import type { ButtonVariant, FontWeight } from '@contracts'
+import { Icon } from 'astro-icon/components'
+import CallToAction from './CallToAction.astro'
+import ClickToScroll from './ClickToScroll.astro'
+
+interface CtaItem {
+  label: string
+  description: string
+  variant: ButtonVariant
+  descriptionWeight: FontWeight
+}
+
+const cta: CtaItem[] = [
+  {
+    label: 'Postula tu charla',
+    description: 'Comparte tus ideas con la comunidad de desarrolladores',
+    variant: 'outlined',
+    descriptionWeight: 'normal'
+  },
+  {
+    label: 'Hazte Sponsor',
+    description: '¡Destaca tu marca en el mayor evento tecnológico de Chile!',
+    variant: 'contained',
+    descriptionWeight: 'bold'
+  },
+  {
+    label: 'Ver antiguas ediciones',
+    description: 'Mira lo que ya hemos hecho en los años anteriores',
+    variant: 'outlined',
+    descriptionWeight: 'normal'
+  }
+];
+---
+
+<div class="logo">
+  <Icon name="logo-jsconf" size={200} />
+
+  <div class="location">
+    <Icon name="location" size={56} />
+    <h1>En <span class="location-city">Santiago</span> de chile</h1>
+  </div>
+
+  <h2>La conferencia de tecnología más esperada del país</h2>
+  <p class="learn">
+    Aprende de expertos, amplía tu red y descubre las últimas tendencias en
+    JavaScript
+  </p>
+  <div class="hero-cta">
+    {
+      cta.map(
+        ({ label, description, variant, descriptionWeight }, index: number) => (
+          <>
+            <CallToAction
+              callToActionDescription={description}
+              callToActionLabel={label}
+              callToActionUrl="#"
+              descriptionWeight={descriptionWeight}
+              variant={variant}
+            />
+            {index < cta.length - 1 && <span class="separator" />}
+          </>
+        )
+      )
+    }
+  </div>
+  <div>
+    <ClickToScroll
+      scroll="#parallax"
+      title="El evento se acerca… Descúbrelo abajo"
+    />
+  </div>
+  <div>
+    <span class="background"></span>
+  </div>
+</div>
+<style>
+  .logo {
+    & .location {
+      display: flex;
+      justify-content: center;
+      gap: var(--gap-hero);
+      & .location-city {
+        color: var(--yellow-400);
+      }
+    }
+
+    & .learn {
+      color: var(--yellow-400);
+    }
+
+    & .hero-cta {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      height: 100%;
+      gap: 1.5rem;
+      & .separator {
+        width: 1px;
+        background-color: var(--stone-700);
+        margin: 0 1.5rem;
+      }
+    }
+
+    & .background {
+      position: absolute;
+      width: 60%;
+      height: 80%;
+      position: absolute;
+      top: 8px;
+      left: 352px;
+      background: var(--radial-gradient);
+      z-index: -1;
+    }
+  }
+</style>
